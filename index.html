@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Voice Translator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with language selectors -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-language"></i>
+            </div>
+            <div class="header-language-selectors">
+                <div class="mini-language-box" id="source-language-mini-box">
+                    <span id="source-language-mini" class="mini-language-value">English</span>
+                    <select id="quick-source-language-select" class="quick-language-select">
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Farsi">Farsi</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Arabic">Arabic</option>
+                    </select>
+                </div>
+                <i class="fas fa-exchange-alt mini-exchange"></i>
+                <div class="mini-language-box" id="target-language-mini-box">
+                    <span id="target-language-mini" class="mini-language-value">Spanish</span>
+                    <select id="quick-target-language-select" class="quick-language-select">
+                        <option value="English">English</option>
+                        <option value="Spanish" selected>Spanish</option>
+                        <option value="Farsi">Farsi</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Arabic">Arabic</option>
+                    </select>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button id="settings-btn" class="icon-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button id="info-btn" class="icon-btn">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Translation Status with Clickable Mic -->
+            <div class="status-container">
+                <div id="status-indicator" class="status-indicator">
+                    <button id="mic-btn" class="mic-btn">
+                        <div class="mic-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </button>
+                    <p id="status-text">Ready to translate</p>
+                    <p id="speaker-indicator" class="hidden"></p>
+                </div>
+            </div>
+
+            <!-- Language display moved to header -->
+
+            <!-- Volume control removed -->
+        </main>
+
+        <!-- We remove the action button as we'll use the mic button instead -->
+        <div class="action-container hidden">
+            <button id="translate-btn" class="translate-btn hidden">
+                Start Translation
+            </button>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button id="close-settings" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- API Key Input -->
+                    <div class="setting-group">
+                        <label for="api-key">OpenAI API Key</label>
+                        <input type="password" id="api-key" placeholder="Enter your OpenAI API key">
+                        <p class="setting-note">Your API key is stored locally and never sent to our servers</p>
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div class="language-selection">
+                        <div class="language-input">
+                            <label for="source-language-select">Your Language</label>
+                            <select id="source-language-select">
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="Farsi">Farsi</option>
+                                <option value="French">French</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                                <option value="Russian">Russian</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Korean">Korean</option>
+                                <option value="Arabic">Arabic</option>
+                            </select>
+                        </div>
+                        <div class="language-input">
+                            <label for="target-language-select">Target Language</label>
+                            <select id="target-language-select">
+                                <option value="English">English</option>
+                                <option value="Spanish" selected>Spanish</option>
+                                <option value="Farsi">Farsi</option>
+                                <option value="French">French</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                                <option value="Russian">Russian</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Korean">Korean</option>
+                                <option value="Arabic">Arabic</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- API Selection -->
+                    <div class="setting-group">
+                        <label>AI Service</label>
+                        <div class="api-selection">
+                            <button id="openai-btn" class="api-btn selected">
+                                <i class="fas fa-check"></i>
+                                <span>OpenAI</span>
+                            </button>
+                            <button id="gemini-btn" class="api-btn">
+                                <span>Google Gemini</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-settings" class="save-btn">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div id="info-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>About This App</h2>
+                    <button id="close-info" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This app uses OpenAI's GPT-4o-mini-realtime-preview API with WebRTC to provide real-time voice translation between different languages.</p>
+                    <h3>How to use:</h3>
+                    <ol>
+                        <li>Enter your OpenAI API key in the settings</li>
+                        <li>Select your language and the target language</li>
+                        <li>Click the microphone button to start</li>
+                        <li>Speak in your language</li>
+                        <li>The app translates your speech in real-time</li>
+                        <li>When the other person speaks, it automatically translates back to your language</li>
+                        <li>Click the microphone button again to stop</li>
+                    </ol>
+                    <p>Your API key and conversations remain secure and are sent directly to OpenAI's servers using encrypted WebRTC connections. No proxy server is required.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
