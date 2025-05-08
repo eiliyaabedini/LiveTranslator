@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  live-translator:
+    image: ghcr.io/[your-username]/livetranslator:latest
+    container_name: live-translator
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    # If you need to pass an API key for testing (not recommended for production)
+    # environment:
+    #   - OPENAI_API_KEY=your_api_key
